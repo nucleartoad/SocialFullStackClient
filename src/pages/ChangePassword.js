@@ -9,7 +9,7 @@ function ChangePassword () {
 
     const changePassword = () => {
         axios.put(
-            "http://localhost:3001/auth/changepassword",
+            "https://social-fullstack-edaefe4a2e52.herokuapp.com/auth/changepassword",
             {currentPassword: currentPassword, newPassword: newPassword},
             { headers: { accessToken: localStorage.getItem("accessToken")
         }}).then((response) => {

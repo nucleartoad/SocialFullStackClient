@@ -14,14 +14,14 @@ function Profile() {
     const { authState } = useContext(AuthContext);
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
+        axios.get(`https://social-fullstack-edaefe4a2e52.herokuapp.com/auth/basicinfo/${id}`).then((response) => {
             setUsername(response.data.username);
         });
 
         if (!localStorage.getItem("accessToken")) {
             navigate("/login");
         } else {
-            axios.get(`http://localhost:3001/posts/byUserId/${id}`, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
+            axios.get(`https://social-fullstack-edaefe4a2e52.herokuapp.com/posts/byUserId/${id}`, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
                 setListOfPosts(response.data.listOfPosts);
                 setLikedPosts(
                     response.data.likedPosts.map((like) => {
@@ -34,7 +34,7 @@ function Profile() {
 
     const likeAPost = (postId, e) => {
         e.stopPropagation();
-        axios.post("http://localhost:3001/likes", { PostId: postId }, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
+        axios.post("https://social-fullstack-edaefe4a2e52.herokuapp.com/likes", { PostId: postId }, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
             setListOfPosts(
                 listOfPosts.map((post) => {
                     if (post.id === postId) {

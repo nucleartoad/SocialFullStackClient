@@ -12,17 +12,17 @@ function Post() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
+        axios.get(`https://social-fullstack-edaefe4a2e52.herokuapp.com/posts/byId/${id}`).then((response) => {
             setPostObject(response.data);
         });
 
-        axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+        axios.get(`https://social-fullstack-edaefe4a2e52.herokuapp.com/comments/${id}`).then((response) => {
             setComments(response.data);
         });
     }, []);
 
     const addComment = () => {
-        axios.post("http://localhost:3001/comments", { commentBody: newComment, PostId: id }, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
+        axios.post("https://social-fullstack-edaefe4a2e52.herokuapp.com/comments", { commentBody: newComment, PostId: id }, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
             if (response.data.error) {
                 console.log(response.data.error);
                 setNewComment("");
@@ -35,7 +35,7 @@ function Post() {
     };
 
     const deleteComment = (id) => {
-        axios.delete(`http://localhost:3001/comments/${id}`, { headers: { accessToken: localStorage.getItem("accessToken") } }).then(() => {
+        axios.delete(`https://social-fullstack-edaefe4a2e52.herokuapp.com/comments/${id}`, { headers: { accessToken: localStorage.getItem("accessToken") } }).then(() => {
             setComments(
                 comments.filter((val) => {
                     return val.id != id;
@@ -45,7 +45,7 @@ function Post() {
     };
 
     const deletePost = (id) => {
-        axios.delete(`http://localhost:3001/posts/${id}`, { headers: { accessToken: localStorage.getItem("accessToken") } }).then(() => {
+        axios.delete(`https://social-fullstack-edaefe4a2e52.herokuapp.com/posts/${id}`, { headers: { accessToken: localStorage.getItem("accessToken") } }).then(() => {
             alert("deleted post");
             navigate("/");
         });
@@ -55,13 +55,13 @@ function Post() {
         e.stopPropagation();
         if (option === "title") {
             let newTitle = prompt("Enter New Title");
-            axios.put(`http://localhost:3001/posts/title`, { newTitle: newTitle, id: id }, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
+            axios.put(`https://social-fullstack-edaefe4a2e52.herokuapp.com/posts/title`, { newTitle: newTitle, id: id }, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
                 setPostObject({ ...postObject, title: newTitle });
                 console.log(response.data);
             });
         } else {
             let newBody = prompt("Enter New Post Text");
-            axios.put("http://localhost:3001/posts/body", { newBody: newBody, id: id }, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
+            axios.put("https://social-fullstack-edaefe4a2e52.herokuapp.com/posts/body", { newBody: newBody, id: id }, { headers: { accessToken: localStorage.getItem("accessToken") } }).then((response) => {
                 setPostObject({ ...postObject, postText: newBody });
                 console.log(response.data);
             });

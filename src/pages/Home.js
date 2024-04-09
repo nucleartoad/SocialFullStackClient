@@ -15,7 +15,7 @@ function Home() {
         if (!localStorage.getItem('accessToken')) {
             navigate("/login");
         } else {
-            axios.get("http://localhost:3001/posts", { headers: { accessToken: localStorage.getItem("accessToken") }}).then((response) => {
+            axios.get("https://social-fullstack-edaefe4a2e52.herokuapp.com/posts", { headers: { accessToken: localStorage.getItem("accessToken") }}).then((response) => {
                 setListOfPosts(response.data.listOfPosts);
                 setLikedPosts(response.data.likedPosts.map((like) => {return like.PostId}));
             });
@@ -31,7 +31,7 @@ function Home() {
         e.stopPropagation();
         axios
             .post(
-                "http://localhost:3001/likes", 
+                "https://social-fullstack-edaefe4a2e52.herokuapp.com/likes", 
                 { PostId: postId }, 
                 { headers: { accessToken: localStorage.getItem("accessToken") } 
             })
